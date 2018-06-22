@@ -1,10 +1,14 @@
 # 服务器基础配置
+import uuid
+
+APP_NAME = "DocTrain"
 DEBUG = True
 SESSION_COOKIE_NAME = "DTSession"
 PERMANENT_SESSION_LIFETIME = 30 * 60
 LOGGER_NAME = "DTLogger"
 JSONIFY_PRETTYPRINT_REGULAR = True
-
+TEMPLATES_AUTO_RELOAD = True
+SECRET_KEY = str(uuid.uuid4()).replace("-", "")
 
 # REDIS缓存
 CACHE_TYPE = 'redis'

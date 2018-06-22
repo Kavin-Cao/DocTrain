@@ -1,4 +1,4 @@
-from enum import Flag
+from enum import IntEnum
 
 from models.base_model import BaseModel
 
@@ -6,7 +6,7 @@ from DocTrain import DocTrainDB as db
 
 
 class SysSetting(BaseModel):
-    class Section(Flag):
+    class Section(IntEnum):
         SYSTEM = 0,
         DOCUMENT = 0,
         USER = 0,

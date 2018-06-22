@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+      <ul class="layui-tab-title">
+        <li {% if tab is none %} class="layui-this" {% endif %}>
+            <a href="/project/{{ project_id }}">项目详情</a>
+        </li>
+        <li {% if tab == 'docs' %} class="layui-this" {% endif %}>
+            <a href="/project/{{ project_id }}/docs">项目文档</a>
+        </li>
+        <li {% if tab == 'users' %} class="layui-this" {% endif %}>
+            <a href="/project/{{ project_id }}/users">用户管理</a>
+        </li>
+      </ul>
+      <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+              {% if not tab %}
+                  {% include '/project/project_info.html' %} {#项目详情#}
+              {% elif tab=='users' %}
+                  {% include '/project/project_users.html' %} {#项目用户#}
+              {% elif tab=='docs' %}
+                  {% include '/project/project_docs.html' %} {#项目文档#}
+              {% endif %}
+          </div>
+      </div>
+    </div>
+    <script>
+        $(function(){
+            var element = layui.element;
+            element.render();
+        });
+    </script>
+{% endblock %}

@@ -2,63 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{{ server_name }}|首页</title>
-    </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ config.APP_NAME }}|首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='img/favicon.ico') }}" />
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <style>
-        body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        }
-
-        p {
-            margin: 20px 0;
-            line-height: 1.5em;
-        }
-
-        header h1 {
-            font-size: 3.8em;
-            line-height: 1.2em;
+        html, body, .height-100{
+            height: 100%;
         }
     </style>
-    <link href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='plugin/layui/css/layui.css') }}" rel="stylesheet">
+
 
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{{ url_for('static', filename='js/html5shiv.min.js') }}"></script>
     <![endif]-->
-    <style>
-        .container{
-            width: 100%;
-            margin: 0px;
-        }
-        .container .left{
-            width: 200px;
-        }
-        .container .center{
 
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugin/layui/layui.all.js') }}"></script>
+
+    <style>
+        .main-content{
+            float: right;
+            width: calc(100% - 200px);
         }
-        .container .right{
-            width: 200px;
+
+        .layui-nav-tree .user-info-container{
+            width: 100%;
+            height: 150px;
+            text-align: center;
+            padding-top: 20px;
+        }
+        .layui-nav-tree .user-info-container .head-avatar{
+            border: 3px rgba(122,122,122,0.5) solid;
+            height: 95px;
+            width: 95px;
+            border-radius: 120px;
+        }
+
+        .layui-nav-tree .user-info-container p.user-name{
+                padding: 10px 0px;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="left">
-
+    <div class="layui-row height-100">
+        <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="test">
+            <li>
+                <div class="user-info-container">
+                    <img class="head-avatar" src="{{ session.SESSION_USER.avatar or url_for('static',filename='img/none-head-avatar.jpg') }}">
+                    <p class="user-name">
+                        {{ session.SESSION_USER.nickname or session.SESSION_USER.mobile or ''}}
+                    </p>
+                </div>
+            </li>
+            {% for project in session.SESSION_USER.projects %}
+                <li class="layui-nav-item"><a href="/project/{{ project.id }}">{{ project.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <div class="main-content center height-100">
+            {% block content%}{% endblock %}
+        </div>
     </div>
-    <div class="center">
-        {% block content%}{% endblock %}
-    </div>
-    <div class="right">
-
-    </div>
-</div>
-
-<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
+<script>
+    $(function () {
+        var element = layui.element;
+        element.render();
+    });
+</script>
 </html>

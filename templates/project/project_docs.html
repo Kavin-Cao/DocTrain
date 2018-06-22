@@ -1,0 +1,16 @@
+{% for doc in documents %}
+    <link rel="stylesheet" href="//guides.github.com/components/gridism/gridism.css">
+    <link rel="stylesheet" href="//guides.github.com/components/primer/octicons.css">
+    <link href="//guides.github.com/stylesheets/main.css" rel="stylesheet">
+    <link href="//guides.github.com/stylesheets/pygments.css" rel="stylesheet">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>{{ doc.title }}</legend>
+        <div class="layui-field-box">
+            {{ doc.content }}
+        </div>
+    </fieldset>
+    {% if not loop.last %}
+    <hr />
+    {% endif %}
+{% endfor %}
+

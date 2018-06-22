@@ -1,4 +1,5 @@
 import re
+
 from sqlalchemy.ext.declarative import AbstractConcreteBase, declared_attr
 from DocTrain import DocTrainDB as db
 
@@ -6,7 +7,7 @@ from DocTrain import DocTrainDB as db
 class BaseModel(AbstractConcreteBase, db.Model):
     """ 为所有Model提供公用方法 """
 
-    id = db.Column(db.INTEGER, primary_key=True, autoincrement="auto increment")
+    id = db.Column(db.INTEGER, primary_key=True, autoincrement=True)
     created = db.Column(db.DATETIME, nullable=False)
     modified = db.Column(db.DATETIME, nullable=False)
     is_deleted = db.Column(db.BOOLEAN, nullable=False, default=True)

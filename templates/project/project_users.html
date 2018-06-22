@@ -1,0 +1,49 @@
+<style>
+    .users-table img.user-avatar{
+        max-width: 100px;
+        width: 50px;
+        height: 50px;
+        border-radius: 120px;
+        border: 3px rgba(155,155,155,0.2) solid;
+    }
+</style>
+<table class="layui-table users-table" lay-even lay-skin="nob">
+    <thead>
+        <tr>
+            <th>手机</th>
+            <th>用户名</th>
+            <th>email</th>
+            <th>昵称</th>
+            <th>头像</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.mobile }}</td>
+        <td>{{ user.user_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.nickname }}</td>
+        <td>
+            <img class="user-avatar" src="{% if user.avatar is not none%}
+                {{ user.avatar }}
+            {% else %}
+               {{ url_for('static', filename='img/none-head-avatar.jpg') }}
+            {% endif %}" />
+        </td>
+        <td>
+            <a>移除</a>
+            <a>修改</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <a>添加用户</a>
+            </td>
+        </tr>
+    </tfoot>
+</table>

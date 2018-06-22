@@ -2,9 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ config.APP_NAME }}|登录</title>
+    <link href="{{ url_for('static', filename='plugin/layui/css/layui.css') }}" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="{{ url_for('static', filename='js/html5shiv.min.js') }}"></script>
+    <![endif]-->
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugin/layui/layui.all.js') }}"></script>
+
+    <style>
+        .login-form-container{
+            text-align: center;
+        }
+
+        .login-form-container .login-form{
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 150px;
+        }
+        .login-form-container .login-form .remembr-me-container{
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
+    <div class="layui-row login-form-container">
+        <form class="layui-form login-form" action="/login" method="post">
+          <div class="layui-form-item">
+            <label class="layui-form-label">账户</label>
+            <div class="layui-input-block">
+              <input type="text" name="login_account" required  lay-verify="required" placeholder="请输入账户以登录" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+              <input type="password" name="login_passwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item remembr-me-container">
+            <label class="layui-form-label">记住我</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="remembr_me" value="true" title="记住我" checked>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="loginForm">登录</button>
+            </div>
+          </div>
+        </form>
+    </div>
+
+<script>
+    $(function () {
+        var form = layui.form;
+        form.render();
+        //监听提交
+        form.on('submit(loginForm)', function(data){
+            return true;
+        });
+    });
+</script>
 
 </body>
 </html>
